@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 
 const Form = ({ type, updateTransactions }) => {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState();
+
+  const handleAmountInputChange = (e) => {
+    const amount = e.target.value;
+    if (+amount < 0) {
+      return setAmount('');
+    }
+    setAmount(amount);
+  };
 
   return (
     <div className="col-md-6">
@@ -14,7 +22,7 @@ const Form = ({ type, updateTransactions }) => {
       >
         <h4 className="text-capitalize">{type}</h4>
         <input
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => handleAmountInputChange(e)}
           type="number"
           placeholder="$ amount you want to deposit"
           className="form-control my-4"

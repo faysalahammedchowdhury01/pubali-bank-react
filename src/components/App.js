@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import Forms from './Forms';
 import Header from './Header';
 import Statements from './Statements';
@@ -40,8 +41,21 @@ const App = () => {
   const updateTransactions = (event, type, amount) => {
     event.preventDefault();
 
+    // validation
+    if (isNaN(amount) || amount === '' || +amount === 0) {
+      return;
+    }
+
     // validation for withdraw
-    if (type === 'withdraw' && amount > totalBalance) return;
+    if (type === 'withdraw' && amount > totalBalance) {
+      // throw error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "You don't have enough money to Withdraw!",
+      });
+      return;
+    }
 
     // new transaction
     const newTransaction = {
@@ -51,11 +65,14 @@ const App = () => {
       currentTime: new Date().toLocaleString(),
     };
 
-    // const new transactions
+    // new transactions
     const newTransactions = [newTransaction, ...transactions];
 
     // update transactions
     setTransactions(newTransactions);
+
+    // throw success alert
+    Swal.fire('', `BTD ${amount} ${type} successfully!`, 'success');
   };
 
   return (
