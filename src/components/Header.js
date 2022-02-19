@@ -7,7 +7,7 @@ const Header = () => {
       <div className="container-xl">
         <div className="row g-5">
           <div className="col-12 text-center mb-4 mb-md-5">
-            <a href="index.html">
+            <a href="/">
               <img
                 style={{ width: '350px', maxWidth: '100%' }}
                 src={logo}
