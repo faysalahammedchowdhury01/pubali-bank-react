@@ -32,7 +32,7 @@ function TransactionHistory({ transactions }) {
       {transactions.length ? (
         <>
           <input
-            onChange={(e) => setSearchTransaction(e.target.value)}
+            onChange={(e) => setSearchTransaction(e.target.value.trim())}
             type="text"
             placeholder="Search Transaction by Transaction Type, TrxID"
             className="form-control history-filter mt-3"
@@ -40,15 +40,19 @@ function TransactionHistory({ transactions }) {
           />
           <div className={classes.history}>
             <ul className="p-0 m-0">
-              {displayedTransactions.map((transaction) => (
-                <Transaction
-                  key={transaction.trxid}
-                  type={transaction.type}
-                  amount={transaction.amount}
-                  trxid={transaction.trxid}
-                  currentTime={transaction.currentTime}
-                />
-              ))}
+              {displayedTransactions.length === 0 ? (
+                <p className="text-muted">No Transaction Found!</p>
+              ) : (
+                displayedTransactions.map((transaction) => (
+                  <Transaction
+                    key={transaction.trxid}
+                    type={transaction.type}
+                    amount={transaction.amount}
+                    trxid={transaction.trxid}
+                    currentTime={transaction.currentTime}
+                  />
+                ))
+              )}
             </ul>
           </div>
         </>
